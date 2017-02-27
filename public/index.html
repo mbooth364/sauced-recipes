@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MyApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sauced Recipes</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="container" ng-controller="MainController">
+    <h1>Sauced Recipes</h1>
+
+    <form class="form-inline center-block">
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input class="form-control" id="title" type="text" placeholder="title" ng-model="newRecipe.title">
+            
+            <label for="description">Description:</label>
+            <input class="form-control" id="description" type="text" placeholder="description" ng-model="newRecipe.description">
+            
+            <label for="image">Image:</label>
+            <input class="form-control" id="image" type="text" placeholder="image url" ng-model="newRecipe.image">
+            
+            <label id="ing-label" for="ingredients">Ingredients:</label>
+            <textarea id="ingredients" ng-model="newRecipe.ingredients"></textarea>
+            
+            <button class="btn btn-primary" ng-click="addRecipe(newRecipe)">Add Recipe</button>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-md-6">
+            <div ng-repeat="item in recipeList track by $index">
+                <h2 ng-hide="editing">{{ item.title }}</h2>
+                <div ng-show="editing">
+                    <input type="text" placeholder="new recipe title" ng-model="item.title">
+                </div>
+                <h2 ng-hide="editing">{{ item.description }}</h2>
+                <div ng-show="editing">
+                    <input type="text" placeholder="new recipe description" ng-model="item.description">
+                </div>
+                <img ng-hide="editing" ng-src="{{ item.image }}">
+                <div ng-show="editing">
+                    <input type="text" placeholder="new recipe image" ng-model="item.image">
+                </div>
+                <h2 ng-hide="editing">{{ item.ingredients }}</h2>
+                <div ng-show="editing">
+                    <input type="text" placeholder="new recipe ingredients" ng-model="item.ingredients">
+                </div>
+                <button class="btn btn-danger glyphicon glyphicon-trash" ng-click="deleteRecipe(item._id, $index)"></button>
+                
+                <button ng-hide="editing" class="btn btn-warning glyphicon glyphicon-pencil" ng-click="editing = !editing"></button>
+                
+                <button ng-show="editing" class="btn btn-success glyphicon glyphicon-floppy-disk" ng-click="editing = !editing; updateRecipe(item, $index)"></button>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-route.js"></script>
+    <script src="app.js"></script>
+    <script src="services.js"></script>
+</body>
+
+</html>
