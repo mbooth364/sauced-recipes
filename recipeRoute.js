@@ -21,7 +21,7 @@ recipeRoute.route("/")
 recipeRoute.route("/:id")
 .get(function(req, res) {
     Recipe.findById(req.params.id, function(err, recipe) {
-        if(err) return res.send.status(500).send(err);
+        if(err) return res.status(500).send(err);
         res.send(recipe);
     })
 })

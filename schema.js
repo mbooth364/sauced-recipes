@@ -2,9 +2,18 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var recipeSchema = new Schema({
-    title: String,
+    menu: {
+        type: String,
+        lowercase: true,
+        enum: ["tapas", "big tastes", "small plates", "buffet"],
+        required: true
+    },
+    title: {
+        type: String,
+        required: true
+    },
     description: String,
-    images: [String],
+    image: String,
     ingredients: [String]
 });
 
