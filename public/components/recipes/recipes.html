@@ -1,0 +1,91 @@
+
+
+<body  ng-controller="RecipesController">
+   <header>
+      <h1>Sauced Recipes</h1> 
+   </header>
+    
+
+    <recipe-modal></recipe-modal>
+
+    <form class="form-inline center-block container" name="saucedForm">
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input class="form-control" id="title" type="text" placeholder="title" ng-model="newRecipe.title" required>
+
+            <label for="image">Image:</label>
+            <input class="form-control" id="image" type="text" placeholder="image url" ng-model="newRecipe.image">
+
+            <label id="ing-label" for="ingredients">Ingredients:</label>
+            <textarea class="form-control" id="ingredients" name="ingredients" ng-model="newRecipe.ingredients" ng-pattern-restrict ng-minlength="3" required></textarea>
+            <p ng-show="saucedForm.ingredients.$invalid && saucedForm.ingredients.$touched"></p>
+
+            <label for="menu">Menu</label>
+            <select name = "menu" class="menu-select" ng-model="newRecipe.menu" required>
+                <option value="small plates">Small Plates</option>
+                <option value="big tastes">Big Tastes</option>
+                <option value="buffet">Buffet</option>
+                <option value="tapas">Tapas</option>
+            </select>
+
+            <button type="submit" class="btn btn-primary" ng-click="addRecipe(newRecipe)" ng-disabled="saucedForm.$invalid">Add Recipe</button>
+
+            <label>Search:
+                <input type="text" ng-model="query" autofocus>
+            </label>
+
+        </div>
+    </form>
+    <div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <h2>Small Plates</h2>
+            <div ng-repeat="item in recipeList | filter:query | orderBy: 'title' | menu:'small plates' track by $index">
+                <h3 class="text-center" ng-click="results(item)">{{ item.title }}</h3>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <h2>Big Tastes</h2>
+            <div ng-repeat="item in recipeList | filter:query | orderBy: 'title' | menu:'big tastes' track by $index">
+                <h3 class="text-center" ng-click="results(item)">{{ item.title }}</h3>
+                <div ng-show="editing">
+                    <input type="text" placeholder="new recipe title" ng-model="item.title">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <h2>Buffet</h2>
+            <div ng-repeat="item in recipeList | filter:query | orderBy: 'title' | menu:'buffet' track by $index">
+                <h3 class="text-center" ng-click="results(item)" ng-hide="editing">{{ item.title }}</h3>
+                <div ng-show="editing">
+                    <input type="text" placeholder="new recipe title" ng-model="item.title">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <h2>Tapas</h2>
+            <div ng-repeat="item in recipeList | filter:query | orderBy: 'title' | menu:'tapas' track by $index">
+                <h3 class="text-center" ng-click="results(item)" ng-hide="editing">{{ item.title }}</h3>
+                <div ng-show="editing">
+                    <input type="text" placeholder="new recipe title" ng-model="item.title">
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+    <footer class="container">
+       <div class="row">
+           <div class="col-md-4 col-sm-6">
+              <img class="img-responsive" src="https://d3ciwvs59ifrt8.cloudfront.net/335c7d4b-fb77-4f4a-88f6-e099e8ee6fbd/9e532c43-488a-41cb-b0e4-10472e938a9a.jpg"> 
+           </div>
+           <div class="col-md-4 col-sm-6">
+              <img class="img-responsive" src="https://d3ciwvs59ifrt8.cloudfront.net/335c7d4b-fb77-4f4a-88f6-e099e8ee6fbd/ef4f0309-8827-4193-85d1-5673b52a42d5_h.jpg">  
+           </div>
+           <div class="col-md-4 col-sm-6">
+               <img class="img-responsive" src="https://dcf54aygx3v5e.cloudfront.net/fac7232f-1b5f-434c-ba49-99be850a5a91/fa9a1f21-5dba-47d2-acc9-9c5a5db1e926_h.jpg">
+           </div>
+       </div>      
+    </footer>    
+</body>
+

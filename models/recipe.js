@@ -14,7 +14,12 @@ var recipeSchema = new Schema({
     },
     description: String,
     image: String,
-    ingredients: [String]
+    ingredients: [String],
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    }
 });
 
 var Recipe = mongoose.model("Recipe", recipeSchema);

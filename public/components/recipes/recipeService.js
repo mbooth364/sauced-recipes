@@ -8,8 +8,10 @@ angular.module("MyApp")
         return $http.get("/recipes");
     }
     
-    this.addRecipe = function(x) {
-        return $http.post("/recipes", x);
+
+    
+    this.addRecipe = function(recipe) {
+        return $http.post("/recipes", recipe);
     }
     
     this.updateRecipe = function(item, index) {
@@ -19,15 +21,14 @@ angular.module("MyApp")
         })
     }
     
-    this.getSingleRecipe = function(_id, index) {
+    this.getSingleRecipe = function(_id) {
         return $http.get(`/recipes/${_id}`)
         .then(function(response) {
-            self.recipeList = response.data;
-            return self.recipeList;
+            return response.data;
         })
     }
     
-    this.deleteRecipe = function(id, index) {
+    this.deleteRecipe = function(id, $index) {
         return $http.delete(`/recipes/${id}`);
     }
 }])

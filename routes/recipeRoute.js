@@ -1,6 +1,6 @@
 var express = require("express");
 var recipeRoute = express.Router();
-var Recipe = require("./schema");
+var Recipe = require("../models/recipe");
 
 recipeRoute.route("/")
 .get(function(req, res) {

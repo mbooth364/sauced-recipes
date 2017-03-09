@@ -1,36 +1,18 @@
-var app = angular.module("MyApp", []);
-
-app.controller("MainController", ["$scope", "$http", "recipeService", function ($scope, $http, recipeService) {
-
-
-    $scope.recipeList = []
-
-    recipeService.getRecipe().then(function (response) {
-        $scope.recipeList = response.data;
+angular.module("MyApp", ["ngRoute", "ui.materialize"])
+.config(["$routeProvider", function($routeProvider) {
+    $routeProvider
+    .when("/home", {
+        templateUrl: "components/home/home.html",
+        controller:"HomeController"
     })
-
-    $scope.addRecipe = function (x) {
-        recipeService.addRecipe(x).then(function (response) {
-            $scope.recipeList.push(response.data)
-            $scope.newRecipe = {};
-        })
-    }
-    
-    recipeService.getSingleRecipe(title)
-    .then(function(recipe) {
-        $scope.recipeList = recipe;
-        console.log(recipe);
+    .when("/recipes", {
+        templateUrl: "components/recipes/recipes.html",
+        controller: "RecipeController"
     })
-
-    $scope.updateRecipe = function (x, index) {
-        recipeService.updateRecipe(x, index).then(function (updatedRecipe) {
-            $scope.recipeList[index] = updatedRecipe;
-        })
-    }
-
-    $scope.deleteRecipe = function (item, index) {
-        recipeService.deleteRecipe(item, index).then(function (response) {
-            $scope.recipeList.splice(index, 1);
-        })
-    }
-}])
+    .when("/restaurants", {
+        templateUrl: ""
+    })
+    .otherwise({
+        redirectTo: "/home"
+    });
+}]);
