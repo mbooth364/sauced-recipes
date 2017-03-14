@@ -19,13 +19,6 @@
             <label for="title">Title:</label>
             <input class="form-control" id="title" type="text" placeholder="title" ng-model="newRecipe.title">
 
-            <!--
-            <label for="description">Description:</label>
-            <input class="form-control" id="description" type="text" placeholder="description" ng-model="newRecipe.description">
--->
-
-
-
             <label for="image">Image:</label>
             <input class="form-control" id="image" type="text" placeholder="image url" ng-model="newRecipe.image">
 
@@ -47,48 +40,23 @@
 
         </div>
     </form>
+
+    
+    <recipe-modal></recipe-modal>
+
+
     <div class="row">
 
         <div class="col-xs-12 col-sm-6 col-md-3">
             <h2>Small Plates</h2>
             <div ng-repeat="item in recipeList | menu:'small plates' track by $index">
-                <h3 data-toggle="modal" data-target="#myModal">{{ item.title }}</h3>
-                <div id="myModal" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title text-center">{{item.title}}</h4>
-                                <div ng-show="editing">
-                                    <input type="text" placeholder="new recipe title" ng-model="item.title">
-                                </div>    
-                            </div>
-                            <div class="modal-body">
-                                <img ng-src="{{item.image}}">
-                                <div ng-show="editing">
-                                    <input type="text" placeholder="new Image" ng-model="item.image">
-                                </div>
-                                <p>{{item.ingredients}}</p>
-                                <div ng-show="editing">
-                                    <input type="text" placeholder="new Ingredients" ng-model="item.ingredients">
-                                </div>
-
-                            </div>
-                            <div class="modal-footer">
-                               <button class="btn btn-warning glyphicon glyphicon-pencil" ng-click="editing = !editing" ng-hide="editing"></button>
-                                <button class="btn btn-success glyphicon glyphicon-floppy-disk" ng-click="editing = !editing; updateRecipe(item, $index)" ng-show="editing"></button> 
-                                <button class="btn btn-danger glyphicon glyphicon-trash" ng-click="deleteRecipe(item._id, $index)"></button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <h3 class="text-center" ng-click="results(item)">{{ item.title }}</h3>
             </div>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-3">
             <h2>Big Tastes</h2>
             <div ng-repeat="item in recipeList | menu:'big tastes' track by $index">
-                <h3 ng-hide="editing">{{ item.title }}</h3>
+                <h3 ng-hide="editing" ng-click="openModal(item)">{{ item.title }}</h3>
                 <div ng-show="editing">
                     <input type="text" placeholder="new recipe title" ng-model="item.title">
                 </div>
@@ -172,6 +140,8 @@
     <script src="app.js"></script>
     <script src="services.js"></script>
     <script src="filters/menuFilter.js"></script>
+    <script src="directives/recipe-modal/recipeModal.js"></script>
+    <script src="directives/recipe-modal/closeRecipeModal.js"></script>
 </body>
 
 </html>

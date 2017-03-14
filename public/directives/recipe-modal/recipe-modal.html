@@ -1,0 +1,30 @@
+<div>
+    <script type="text/ng-template" id="modal.html">
+        <div class="modal-dialog">
+                <div class="modal-header">
+                    <h4 class="modal-title text-center" data-target="modal.html" data-toggle="modal">{{recipe.title}}</h4>
+                    <div ng-show="editing">
+                        <input type="text" placeholder="new recipe title" ng-model="recipe.title">
+                    </div>
+                </div>
+                <div class="modal-body">
+
+                    <p ng-repeat="ing in recipe.ingredients track by $index">{{ing}}</p>
+                    <div ng-show="editing">
+                        <input type="text" placeholder="new Ingredients" ng-model="recipe.ingredients">
+                    </div>
+                    <img ng-src="{{recipe.image}}">
+                    <div ng-show="editing">
+                        <input type="text" placeholder="new Image" ng-model="recipe.image">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-warning glyphicon glyphicon-pencil" ng-click="editing = !editing" ng-hide="editing"></button>
+                    <button class="btn btn-success glyphicon glyphicon-floppy-disk" ng-click="editing = !editing; updateRecipe(recipe, $index)" ng-show="editing"></button>
+                    <button class="btn btn-danger glyphicon glyphicon-trash" ng-click="deleteRecipe(recipe._id, $index)"></button>
+                    <button class="btn btn-primary" type="button" ng-click="cancel()">Close</button>
+                </div>
+            </div>
+    </script>
+</div>

@@ -32,8 +32,16 @@ form{
 
 img{
     height:200px;
+    
 }
 .modal-title{
     text-align: center;
+    font-family:serif;
+    font-size:40px;
+}
+
+.modal-bkgrnd{
+    background-color:red;
+    
 }
 
